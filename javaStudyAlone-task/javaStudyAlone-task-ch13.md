@@ -8,15 +8,21 @@
 ### 확인 문제 및 풀이
 
 1. List 컬렉션은 인덱스로 객체를 관리하며, 중복 저장을 허용한다. Set 컬렉션은 순서를 유지하지 않으며, 중복 저장을 허용하지 않는다. Map 컬렉션은 키와 값으로 구성된 `Map.Entry`를 저장한다.
+
    1-4. List와 Set은 서로 null을 저장할 수 있는 정도가 다르다. List의 경우 null을 여러 번 저장할 수 있지만, Set은 한 번만 저장할 수 있다.
 
 2. List 컬렉션에서 대표적인 구현 클래스로는 `ArrayList·Vector·LinkedList`가 있다. 멀티 스레드 환경에서는 ArrayList보다는 Vector가 스레드에 안전하다. 중간 위치에 객체를 빈번히 삽입하거나 제거할 경우에는 `LinkedList`를 사용하는 것이 좋다.
+
    2-3. ArrayList에서 객체를 삭제했을 때 삭제된 위치는 빈 공간이 되지 않는다.
 
 3. Set 컬렉션에서 대표적인 구현 클래스로는 `HashSet·LinkedHashSet·TreeSet`이 있으며, Set 컬렉션에서 객체를 하나씩 꺼내오고 싶다면 `Iterator`를 이용해야 한다. HashSet은 `hashCode()`와 `equals()`를 이용해서 중복된 객체를 판별한다.
+
    3-4. Set 컬렉션에는 null을 저장할 수 있다.
+
 4. Map 컬렉션에서 대표적인 구현 클래스로는 `HashMap·Hashtable·TreeMap`이 있으며, HashMap과 Hashtable은 `hashCode()`와 `equals()`를 이용해서 중복 키를 판별한다. 멀티 스레드 환경에서는 HashMap보다 Hashtable이 스레드에 안전하다.
+
    4-4. Map 컬렉션에는 다른 키로 객체를 중복해서 저장할 수 있다.
+
 5. `List<Board>` 변수 = new `ArrayList<Board>`
 6. `Map<String, Integer>` 변수 = new `HashMap<String, Integer>`
 7.
@@ -74,4 +80,5 @@ System.out.println("최고점수를 받은 아이디: "+name);
 ### 확인 문제 및 풀이
 
 1. Stack은 후입선출(LIFO)를 구현한 클래스이며, Queue는 선입선출(FIFO)을 위한 인터페이스이다. Stack의 `push()`는 객체를 넣을 때, `popover()`은 객체를 뺄 때 사용한다.
+
    1-4. Queue의 `poll()`은 객체를 뺄 때, `offer()`는 객체를 넣을 때 사용한다.

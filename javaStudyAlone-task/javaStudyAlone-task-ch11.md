@@ -10,6 +10,7 @@
 ### 확인 문제 및 풀이
 
 1. Object 클래스는 모든 Java 클래스의 최상위 부모 클래스이며, Object의 `equals()` 메소드는 == 연산자와 동일하게 번지를 비교한다. 동등 비교를 위해 `equals()`와 `hashCode()` 메소드를 재정의하는 것이 좋다.
+
    1-4. Object의 toString() 메소드는 기본적으로 객체의 필드값을 문자열로 리턴하지 않는다.
 
 2. | `hashCode()` 리턴값 | → [같음] → | `equals()` 리턴값 | → true → | [동등 객체] |
@@ -46,6 +47,7 @@ public String toString() {
 ```
 
 5. Class 객체는 `Class.forName()` 메소드 또는 객체의 `getClass()` 메소드로 얻을 수 있다. 클래스의 생성자·필드·메소드에 대한 정보를 알아낼 수 있으며, 클래스 파일을 기준으로 상대 경로의 리소스의 정보를 얻을 수 있다.
+
    5-4. `클래스.class`로 Class 객체를 얻을 수 있다.
 
 6. `new String(bytes)`
