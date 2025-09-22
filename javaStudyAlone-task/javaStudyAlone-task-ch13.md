@@ -72,6 +72,79 @@ System.out.println("평균점수: "+avgScore);
 System.out.println("최고점수를 받은 아이디: "+name);
 ```
 
+### 13-1-ChatGPT
+
+#### JAVA에서 스레드 안전(THREAD SAFE)는 무슨 소리지?
+
+Java에서 "스레드 안전(Thread Safe)"는 여러 스레드가 동시에 특정 코드를 실행할 때, 그 코드가 예상한 대로 동작하도록 보장된 상태를 말합니다. 즉, 다중 스레드 환경에서 하나의 자원(변수, 객체 등)을 동시에 접근하거나 수정하더라도, 그 자원이 일관성 있는 상태를 유지하고 오류가 발생하지 않도록 하는 것입니다.
+
+##### 예시
+
+만약 여러 스레드가 동시에 하나의 변수나 객체를 수정하는 경우, 예기치 않은 동작이나 데이터 불일치가 발생할 수 있습니다. 스레드 안전을 보장하기 위해서는 이런 동시 접근을 조정할 필요가 있습니다.
+
+##### 스레드 안전을 보장하는 방법
+
+1. **동기화(Synchronization):**
+
+   - `synchronized` 키워드를 사용하여 한 번에 하나의 스레드만 특정 코드 블록에 접근할 수 있도록 보장할 수 있습니다.
+   - 예시:
+
+     ```java
+     public synchronized void increment() {
+         count++;
+     }
+     ```
+
+2. **불변 객체(Immutable Objects):**
+
+   - 객체의 상태를 한 번 설정하면 변경할 수 없도록 만들어, 여러 스레드가 객체를 공유해도 데이터가 변하지 않도록 하는 방법입니다.
+   - 예시:
+
+     ```java
+     public final class Person {
+         private final String name;
+         private final int age;
+
+         public Person(String name, int age) {
+             this.name = name;
+             this.age = age;
+         }
+
+         // getter methods only
+     }
+     ```
+
+3. **스레드 안전한 컬렉션 클래스:**
+
+   - `java.util.concurrent` 패키지에는 스레드 안전을 고려한 다양한 컬렉션 클래스가 포함되어 있습니다. 예를 들어, `CopyOnWriteArrayList`, `ConcurrentHashMap` 등이 있습니다.
+   - 예시:
+
+     ```java
+     Map<String, String> map = new ConcurrentHashMap<>();
+     ```
+
+4. **`ReentrantLock`과 같은 명시적 락 사용:**
+
+   - `ReentrantLock`을 사용하여 동기화 블록을 명시적으로 제어할 수 있습니다. 이 방법은 `synchronized`보다 더 세밀하게 락을 관리할 수 있는 장점이 있습니다.
+   - 예시:
+
+     ```java
+     ReentrantLock lock = new ReentrantLock();
+     lock.lock();
+     try {
+         // critical section
+     } finally {
+         lock.unlock();
+     }
+     ```
+
+##### 왜 중요한가?
+
+- **데이터 무결성:** 여러 스레드가 동시에 데이터를 수정할 때, 스레드 안전하지 않으면 데이터가 중간에 손상될 수 있습니다.
+- **예상 가능한 결과:** 스레드 안전성을 보장하면, 여러 스레드가 동시에 작업을 할 때도 코드의 동작이 예측 가능해지고 버그를 예방할 수 있습니다.
+
+쉽게 말해서, "스레드 안전"은 여러 스레드가 동시에 같은 자원에 접근할 때 그 자원이 일관되게 유지되도록 보장하는 것입니다.
+
 ## 13-2 LIFO와 FIFO 컬렉션
 
 - **Stack**: 후입선출(LIFO)을 구현한 클래스
