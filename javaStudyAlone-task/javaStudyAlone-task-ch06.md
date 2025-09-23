@@ -31,7 +31,14 @@
 
    1-3. 필드는 **객체 외부에서 접근할 수 있다.**
 
-2.
+2. "현실 세계의 회원을 `Member` 클래스로 모델링하고자 한다. 이들 데이터를 가지는 `Member` 클래스를 선언하기."
+
+| 데이터 이름 | 필드 이름 | 타입   |
+| ----------- | --------- | ------ |
+| 이름        | name      | 문자열 |
+| 아이디      | id        | 문자열 |
+| 패스워드    | password  | 문자열 |
+| 나이        | age       | 정수   |
 
 ```
 public class Member {
@@ -42,7 +49,17 @@ public class Member {
 }
 ```
 
-3. `new Member()`, `member.name`, `member.age`
+3. "위에서 작성한 `Member` 클래스의 필드를 `MemberExample` 클래스의 `main() 메소드`에서 사용하려고 한다."
+
+```
+public class MemberExample {
+	public static void main(String[] args) {
+		Member member = new Member();
+		member.name = "최하얀";	//name 필드값 변경
+		member.age = 23;	//age 필드값 변경
+	}
+}
+```
 
 ## 06-3 생성자
 
@@ -59,40 +76,67 @@ public class Member {
 
    1-1. 객체를 생성하려면 **생성자 호출이 반드시 필요하다.**
 
-2.
+2. "다음과 같이 `Member` 객체를 생성하고 싶다. 생성자에서 `name` 필드와 `id` 필드를 외부에서 받은 값으로 초기화할 수 있도록 `Member` 클래스를 작성해보기."
+
+`Member user1 = new Member("홍길동", "hong");`
 
 ```
+
 public class Member {
-	String name;
-	String id;
-	String password;
-	int age;
-}
-```
-
-3.
-
-```
-Board(String title, String content) {
-	this(title, content, "로그인한 회원아이디", "현재 컴퓨터 날짜", 0);
+String name;
+String id;
+String password;
+int age;
 }
 
-Board(String title, String content, String writer) {
-	this(title, content, writer, "현재 컴퓨터 날짜", 0);
-}
-
-Board(String title, String content, String writer, String date) {
-	this(title, content, writer, date, 0);
-}
 ```
 
-4.
+3. "`Board` 클래스의 생성자가 다음과 같이 오버로딩되어 있다. 생성자마다 중복 코딩된 부분이 있다. `this()`를 활용하여 중복 코드를 제거하기."
 
 ```
+
+package sec03.verify.exam03;
+
+public class Board {
+String title;
+String content;
+String writer;
+String date;
+int hitcount;
+
+    Board(String title, String content) {
+    	this(title, content, "로그인한 회원아이디", "현재 컴퓨터 날짜", 0);
+    }
+
+    Board(String title, String content, String writer) {
+    	this(title, content, writer, "현재 컴퓨터 날짜", 0);
+    }
+
+    Board(String title, String content, String writer, String date) {
+    	this(title, content, writer, date, 0);
+    }
+
+    Board(String title, String content, String writer, String date, int hitcount) {
+    	this.title = title;
+    	this.content = content;
+    	this.writer = writer;
+    	this.date = date;
+    	this.hitcount = hitcount;
+    }
+
+}
+
+```
+
+4. "`Board` 클래스가 선언되어 있을 경우 `Board` 객체를 생성하는 4가지 방법을 모두 기술하기."
+
+```
+
 Board board1 = new Board("제목", "내용");
 Board board2 = new Board("제목", "내용", "홍길동");
 Board board3 = new Board("제목", "내용", "홍길동", "2025-12-31");
 Board board4 = new Board("제목", "내용", "홍길동", "2025-12-31", 0);
+
 ```
 
 ## 06-4 메소드
@@ -120,44 +164,111 @@ Board board4 = new Board("제목", "내용", "홍길동", "2025-12-31", 0);
 
     2-2. 반드시 리턴 타입이 다를 필요는 없다.
 
-3.
+3.  "`MemberService` 클래스에 `login()` 메소드와 `logout()` 메소드를 선언하려고 한다. `login()` 메소드를 호출할 때에는 매개값으로 `id`와 `password`를 제공하고, `logout()` 메소드는 `id`만 매개값으로 제공한다. `MemberService` 클래스와 `login()`, `logout()` 메소드를 선언하기."
+
+    1.  `login()` 메소드는 매개값 `id`가 `hong`, 매개값 `password`가 `12345`일 경우에만 true로 리턴하고 그 이외의 값일 경우에는 false를 리턴하게 하기
+    2.  `logout()` 메소드의 내용은 `로그아웃 되었습니다.`가 출력되게할 것
+        | 리턴 타입 | 메소드 이름 | 매개 변수(타입) |
+        | --- | --- | --- |
+        | boolean | login | id(String), password(String) |
+        | void | logout | id(String) |
 
 ```
+
+//MemberService.java
+package sec04.verify.exam03;
+
 public class MemberService {
-	boolean login(String id, String password) {
-		if(id.equals("hong") && password.equals("12345")) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	void logout(String id) {
-		System.out.println("로그아웃 되었습니다.");
-	}
+boolean login(String id, String password) {
+if(id.equals("hong") && password.equals("12345")) {
+return true;
+} else {
+return false;
 }
+}
+void logout(String id) {
+System.out.println("로그아웃 되었습니다.");
+}
+}
+
 ```
 
-4.
+```
+
+//MemberServiceExample.java
+package sec04.verify.exam03;
+
+public class MemberServiceExample {
+public static void main(String[] args) {
+MemberService memberService = new MemberService();
+boolean result = memberService.login("hong", "12345");
+if(result) {
+System.out.println("로그인 되었습니다.");
+memberService.logout("hong");
+} else {
+System.out.println("id 또는 password가 올바르지 않습니다.");
+}
+}
+}
 
 ```
+
+```
+
+//실행 결과
+로그인 되었습니다.
+로그아웃 되었습니다.
+
+```
+
+4. "`PrinterExample` 클래스에서 `Printer` 객체를 생성하고 `println()` 메소드를 호출해서 매개값을 콘솔에 출력하려고 한다. `println()` 메소드의 매개값으로는 `int, boolean, double, String` 값을 줄 수 있다. `Printer` 클래스에서 `println()` 메소드를 선언하기."
+
+```
+
+//Printer.java
+package sec04.verify.exam04;
+
 public class Printer {
-	static void println(int value) {
-		System.out.println(value);
-	}
-
-	static void println(boolean value) {
-		System.out.println(value);
-	}
-
-	static void println(double value) {
-		System.out.println(value);
-	}
-
-	static void println(String value) {
-		System.out.println(value);
-	}
+static void println(int value) {
+System.out.println(value);
 }
+static void println(boolean value) {
+System.out.println(value);
+}
+static void println(double value) {
+System.out.println(value);
+}
+static void println(String value) {
+System.out.println(value);
+}
+}
+
+```
+
+```
+
+//PrinterExample.java
+package sec04.verify.exam04;
+
+public class PrinterExample {
+public static void main(String[] args) {
+Printer.println(10);
+Printer.println(true);
+Printer.println(5.7);
+Printer.println("홍길동");
+}
+}
+
+```
+
+```
+
+//실행 결과
+10
+true
+5.7
+홍길동
+
 ```
 
 ## 06-5 인스턴스 멤버와 정적 멤버
@@ -180,18 +291,46 @@ public class Printer {
 
    2-2. final 필드와 상수는 생성자에서 초기화할 수 있다.
 
-3.
+3. "`ShopService` 객체를 싱글톤으로 만들고프다. `ShopServiceExample` 클래스에서 `ShopService`의 `getInstance()` 메소드를 싱글톤을 얻을 수 있도록 `ShopService` 클래스를 작성하기."
 
 ```
+
+//ShopService.java
+package sec05.verify.exam01;
+
 public class ShopService {
-	private static ShopService singleton = new ShopService();
-
-	private ShopService() {}
-
-	static ShopService getInstance() {
-		return singleton;
-	}
+private static ShopService singleton = new ShopService();
+private ShopService() {}
+static ShopService getInstance() {
+return singleton;
 }
+}
+
+```
+
+```
+//ShopServiceExample.java
+package sec05.verify.exam01;
+
+public class ShopServiceExample {
+public static void main(String[] args) {
+ShopService obj1 = ShopService.getInstance();
+ShopService obj2 = ShopService.getInstance();
+if(obj1 == obj2) {
+System.out.println("같은 ShopService 객체 입니다.");
+} else {
+System.out.println("다른 ShopService 객체 입니다.");
+}
+}
+}
+
+```
+
+```
+
+//실행 결과
+같은 ShopService 객체입니다.
+
 ```
 
 ## 06-6 패캐지와 접근 제한자

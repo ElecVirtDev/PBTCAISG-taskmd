@@ -25,7 +25,15 @@
 
    4-4. NullPointerException은 **변수에서 존재하지 않는 객체의 필드나 메소드를 사용하려고할 때 발생**한다.
 
-5. true, false, true, true, true
+5. "다음 코드에서 비교 연산식과 메소드의 실행 결과를 서술하기."
+
+```
+int var1 = 10;  //true
+int var2 = 10;  //false
+String var3 = "AB"; //true
+String var4 = "AB"; //true
+String var5 = new String("AB"); //true
+```
 
 ## 05-2 배열
 
@@ -49,60 +57,169 @@
 
    2-3. boolean 타입 배열 항목의 **기본 초기값은 false**이다.
 
-3. 3, 5
-4.
+3. "배열의 길이에 대한 문제. `array.length`의 값과 `array[2].length`의 값은 얼마인가?"
 
 ```
-for (int i = 0; i < array.length; i++) {
-  if (max < array[i]) {
-	max = array[i];
-  }
+int[][] array = { //array.length = 3, array[2].length = 5
+  {95, 86},
+  {83, 92, 96},
+  {78, 83, 93, 87, 88}
+};
+```
+
+4. "for문을 이용해서 주어진 배열의 항목에서 최대값을 구해보기."
+
+```
+//Exam04.java
+package sec02.verify.exam04;
+
+public class Exam04 {
+	public static void main(String[] args) {
+		int max = 0;
+		int[] array = { 1, 5, 3, 8, 2 };
+
+		for (int i = 0; i < array.length; i++) {
+			if (max < array[i]) {
+				max = array[i];
+			}
+		}
+
+		System.out.println("max: " + max);
+	}
 }
 ```
 
-5.
+```
+//실행 결과
+max: 8
+```
+
+5. "중첩 for문을 이용해서 주어진 배열의 전체 항목의 합과 평균값 구하기"
 
 ```
-int count = 0;
-for (int i = 0; i < array.length; i++) {
-  for (int j = 0; j < array[i].length; j++) {
-	sum += array[i][j];
-	count++;
-  }
+//Exam05.java
+package sec02.verify.exam05;
+
+public class Exam05 {
+	public static void main(String[] args) {
+		int[][] array = { { 95, 86 }, { 83, 92, 96 }, { 78, 83, 93, 87, 88 } };
+
+		int sum = 0;
+		double avg = 0.0;
+
+		int count = 0;
+		for (int i = 0; i < array.length; i++) {
+			for (int j = 0; j < array[i].length; j++) {
+				sum += array[i][j];
+				count++;
+			}
+		}
+		avg = (double) sum / count;
+
+		System.out.println("sum: " + sum);
+		System.out.println("avg: " + avg);
+	}
 }
-avg = (double) sum / count;
 ```
 
-6.
+```
+//실행 결과
+sum: 881
+avg: 88.1
+```
+
+6. "키보드로부터 학생 수와 각 학생들의 점수를 입력받아, 최고 점수 및 평균 점수를 구하는 프로그램. 실행 결과를 보고 알맞게 작성할 것."
 
 ```
-if (selectNo == 1) {
-  System.out.print("학생 수> ");
-  studentNum = Integer.parseInt(scanner.nextLine());
-  scores = new int[studentNum];
-} else if (selectNo == 2) {
-  for (int i = 0; i < scores.length; i++) {
-	System.out.print("scores[" + i + "]> ");
-	scores[i] = Integer.parseInt(scanner.nextLine());
-  }
-} else if (selectNo == 3) {
-  for (int i = 0; i < scores.length; i++) {
-	System.out.println("scores[" + i + "]: " + scores[i]);
-  }
-} else if (selectNo == 4) {
-  int max = 0;
-  int sum = 0;
-  double avg = 0;
-  for (int i = 0; i < scores.length; i++) {
-	max = (max < scores[i]) ? scores[i] : max;
-	sum += scores[i];
-  }
-  avg = (double) sum / studentNum;
-  System.out.println("최고 점수: " + max);
-  System.out.println("평균 점수: " + avg);
-} else if (selectNo == 5) {
-  run = false;
+//Exam06.java
+package sec02.verify.exam06;
+
+import java.util.Scanner;
+
+public class Exam06 {
+	public static void main(String[] args) {
+		boolean run = true;
+
+		int studentNum = 0;
+		int[] scores = null;
+
+		Scanner scanner = new Scanner(System.in);
+
+		while (run) {
+			System.out.println("--------------------------------------------------------------");
+			System.out.println("1.학생수 | 2.점수입력 | 3.점수리스트 | 4.분석 | 5.종료");
+			System.out.println("--------------------------------------------------------------");
+			System.out.print("선택> ");
+
+			int selectNo = Integer.parseInt(scanner.nextLine());
+
+			if (selectNo == 1) {
+				System.out.print("학생수> ");
+				studentNum = Integer.parseInt(scanner.nextLine());
+				scores = new int[studentNum];
+			} else if (selectNo == 2) {
+				for (int i = 0; i < scores.length; i++) {
+					System.out.print("scores[" + i + "]> ");
+					scores[i] = Integer.parseInt(scanner.nextLine());
+				}
+			} else if (selectNo == 3) {
+				for (int i = 0; i < scores.length; i++) {
+					System.out.println("scores[" + i + "]: " + scores[i]);
+				}
+			} else if (selectNo == 4) {
+				int max = 0;
+				int sum = 0;
+				double avg = 0;
+				for (int i = 0; i < scores.length; i++) {
+					max = (max < scores[i]) ? scores[i] : max;
+					sum += scores[i];
+				}
+				avg = (double) sum / studentNum;
+				System.out.println("최고 점수: " + max);
+				System.out.println("평균 점수: " + avg);
+			} else if (selectNo == 5) {
+				run = false;
+			}
+		}
+
+		System.out.println("프로그램 종료");
+	}
 }
+
+```
+
+```
+//실행 결과
+--------------------------------------------------------------
+1.학생수 | 2.점수입력 | 3.점수리스트 | 4.분석 | 5.종료
+--------------------------------------------------------------
+선택> 1
+학생수> 3
+--------------------------------------------------------------
+1.학생수 | 2.점수입력 | 3.점수리스트 | 4.분석 | 5.종료
+--------------------------------------------------------------
+선택> 2
+scores[0]> 88
+scores[1]> 95
+scores[2]> 79
+--------------------------------------------------------------
+1.학생수 | 2.점수입력 | 3.점수리스트 | 4.분석 | 5.종료
+--------------------------------------------------------------
+선택> 3
+scores[0]> 88
+scores[1]> 95
+scores[2]> 79
+--------------------------------------------------------------
+1.학생수 | 2.점수입력 | 3.점수리스트 | 4.분석 | 5.종료
+--------------------------------------------------------------
+선택> 4
+최고 점수: 95
+평균 점수: 87.33333333333333
+--------------------------------------------------------------
+1.학생수 | 2.점수입력 | 3.점수리스트 | 4.분석 | 5.종료
+--------------------------------------------------------------
+선택> 5
+프로그램 종료
 ```
 
 ## 05-3 열거 타입
@@ -118,7 +235,20 @@ if (selectNo == 1) {
 
    1-3. 열거 타입 변수에 **null을 대입할 수도 있다.**
 
-2. `public enum LoginResult { SUCCESS, FAIL_ID, FAIL_PASSWORD }`
+2. "다음 코드에서처럼 사용될 수 있도록 `LoginResult` 열거 타입을 선언하기"
+
+```
+LoginResult result = LoginResult.FAIL_PASSWORD;
+if (result == LoginResult.SUCCESS) {
+  ...
+} else if(result == LoginResult.FAIL_ID) {
+  ...
+} else if(result == LoginResult.FAIL_PASSWORD) {
+  ...
+}
+```
+
+`public enum LoginResult { SUCCESS, FAIL_ID, FAIL_PASSWORD }`
 
 ### 05-3-ChatGPT
 
