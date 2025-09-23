@@ -132,16 +132,57 @@ if (y != 0.0) {
 }
 ```
 
-10. `double var4 = var1 * var1 * Double.parseDouble(var2 + "." + var3);`
-11. `name.equals("java")`, `password == 12345`
-12. true, false
-13.
+10. "반지름이 10인 원의 넓이를 구하는데 다음과 같이 var2, `.`, var3을 + 연산해서 원주율을 얻은 다음 계산하고자 한다. 올바른 결과가 나오도록 코드를 수정하기."
 
 ```
-value += 10;
-value -= 10;
-value *= 10;
-value /= 10;
+int var1 = 10;
+int var2 = 3;
+int var3 = 14;
+double var4 = var1 * var1 * var2 + "." + var3 //double var4 = var1 * var1 * Double.parseDouble(var2 + "." + var3);
+System.out.println("원의 넓이:" + var4);
+```
+
+11. "키보드로 아이디와 패스워드를 입력받는다. 입력 조건으로 이름은 문자열, 패스워드는 정수(int 타입으로 변환). 입력된 내용을 비교해서 아이디가 `java`이고 패스워드가 `12345`이면 `로그인 성공`을 출력하고, 그게 아니라면 `로그인 실패`를 출력하도록 알맞은 코드 작성하기."
+
+```
+Scanner scanner = new Scanner(System.in);
+
+System.out.print("아이디:");
+String name = scanner.nextLine();
+
+System.out.print("패스워드:");
+String strPassword = scanner.nextLine();
+int password = Integer.parseInt(strPassword);
+
+if(name.equals("java")) {
+  if(password == 12345) {
+    System.out.println("로그인 성공");
+  } else {
+    System.out.println("로그인 실패:패스워드가 틀림");
+  }
+} else {
+  System.out.println("로그인 실패:아이디 존재하지 않음");
+}
+```
+
+12. "비교 연산자와 논리 연산자의 복합 연산식이 포함된 코드로 연산식의 결과는 다음과 같다."
+
+```
+int x = 10;
+int y = 5;
+System.out.println( (x>7) && (y<=5) );  //true
+System.out.println( (x%3 == 2) || (y%2 != 1) ); //false
+```
+
+13. "대입 연산자(=)와 산술 연산자(+, -, \*, /)로 구성된 실행문을 대입 연산자 하나로 구성된 실행문으로 변경하기."
+
+```
+int value = 0;
+
+value = value + 10; //value += 10;
+value = value - 10; //value -= 10;
+value = value * 10; //value *= 10;
+value = value / 10; //value /= 10;
 ```
 
 14.
