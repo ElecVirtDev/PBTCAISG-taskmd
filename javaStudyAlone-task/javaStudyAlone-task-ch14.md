@@ -38,9 +38,10 @@
 
    1-3. `DataInputStream`은 원시 데이터를 입력하는 보조 스트림이다. (객체의 경우 `ObjectInputStream·ObjectOutputStream`을 사용)
 
-2. FileReader와 BufferedReader를 이용해서 source.txt 내용을 읽고, 각 라인 번호를 추가해 모니터로 출력하는 프로그램을 작성하기
+2. `FileReader`와 `BufferedReader`를 이용해서 `source.txt` 내용을 읽고, 각 라인 번호를 추가해 모니터로 출력하는 프로그램을 작성하기
 
 ```
+//AddLineNumberExample.java, 라인 번호를 출력
 package sec02.verify.exam02;
 
 import java.io.BufferedReader;
@@ -65,6 +66,7 @@ public class AddLineNumberExample {
 ```
 
 ```
+//실행 결과
 package sec02.verify.exam02;
 
 import java.io.BufferedReader;
@@ -181,7 +183,7 @@ public class Ch14FinalTask {
           default:
             break;
         }
-      } catch (NumberFormatException e) {
+      } catch (NumberFormatException e) { //예외 처리
         System.out.println(
           "유효하지 않은 숫자가 입력되었습니다. 다시 시도하세요."
         );

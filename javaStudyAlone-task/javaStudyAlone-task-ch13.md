@@ -23,11 +23,56 @@
 
    4-4. Map 컬렉션에는 다른 키로 객체를 중복해서 저장할 수 있다.
 
-5. `List<Board>` 변수 = new `ArrayList<Board>`
-6. `Map<String, Integer>` 변수 = new `HashMap<String, Integer>`
-7.
+5. 싱글 스레드 환경에서 `Board` 객체를 저장 순서에 맞게 읽고 싶다. 가장 적합한 컬렉션을 생성하게끔 작성하기
+   `List<Board>` 변수 = new `ArrayList<Board>`
+
+6. 싱글 스레드 환경에서 학번(String)을 키로, 점수(Integer)를 값으로 저장하는 가장 적합한 컬렉션을 생성하게끔 작성하기
+   `Map<String, Integer>` 변수 = new `HashMap<String, Integer>`
+
+7. `BoardDao` 객체의 `getBoardList()` 메소드를 호출하려면 `List<Board>` 타입의 컬렉션을 리턴한다. `ListExample` 클래스를 실행할 때 다음과 같이 출력될 수 있도록 `BoardDao`의 `getBoardList()` 메소드를 작성해보기
 
 ```
+//ListExample.java, BoardDao 사용 클래스
+package sec01.verify.exam07;
+
+import java.util.List;
+
+public class ListExample {
+	public static void main(String[] args) {
+		BoardDao dao = new BoardDao();
+		List<Board> list = dao.getBoardList();
+		for(Board board : list) {
+			System.out.println(board.getTitle() + "-" + board.getContent());
+		}
+	}
+}
+```
+
+```
+//Board.java, 게시물 클래스
+package sec01.verify.exam07;
+
+public class Board {
+	private String title;
+	private String content;
+
+	public Board(String title, String content) {
+		this.title = title;
+		this.content = content;
+	}
+
+	public String getTitle() { return title; }
+	public String getContent() { return content; }
+}
+```
+
+```
+//BoardDao.java, 게시물을 가져오는 클래스
+package sec0101.verify.exam07;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class BoardDao {
 	List<Board> list = new ArrayList<Board>();
 	list.address(new Board("제목1", "내용1"));
@@ -38,9 +83,47 @@ public class BoardDao {
 }
 ```
 
-8.
+8. "`HashSet`에 `Student` 객체를 저장하고자 한다. 학번이 같으면 동일한 `Student`라 가정하고 중복 저장이 되지 않게 하고싶다. `Student` 클래스에서 재정의해야 하는 `hashCode()`와 `equals()` 메소드의 내용을 채워보자. `Student`의 해시코드는 학번이라고 가정하기."
 
 ```
+//HashSetExample.java
+package sec01.verify.exam08;
+
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+public class HashSetExample {
+	public static void main(String[] args) {
+		Set<Student> set = new HashSet<Student>();
+
+		set.add(new Student(1, "홍길동"));
+		set.add(new Student(2, "신용권"));
+		set.add(new Student(1, "조민우"));	//학번이 같으므로 저장되지 않음
+
+		Iterator<Student> iterator = set.iterator();
+		while(iterator.hasNext()) {
+			Student student = iterator.next();
+			System.out.println(student.studentNum + ":" + student.name);
+		}
+	}
+}
+```
+
+```
+//Student.java, hashCode()와 equals() 재정의
+package sec01.verify.exam08;
+
+public class Student {
+    public int studentNum;
+    public String name;
+
+    pbulic Student(int studentNum, String name) {
+        this.student = studentNum;
+        this.name = name;
+    }
+}
+
 @Override
 public int hashCode() {
 	return studentNum;
@@ -55,21 +138,47 @@ public boolean equals(Object obj) {
 }
 ```
 
-9.
+9. "`HashMap`에 아이디(String)와 점수(Integer)가 저장되어 있습니다. 실행 결과처럼 평균 점수를 출력하고, 최고 점수와 최고 점수를 받은 아이디를 출력하기"
+
+```//점수 관리
+package sec01.verify.exam09;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class MapExample {
+    public static void main(String[] args) {
+        Map<String,Integer> map = new HashMap<String,Integer>();
+        map.put("blue", 96);
+        map.put("hong", 86);
+        map.put("white", 92);
+
+        String name = null;
+        int maxScore = 0;
+        int totalScore = 0;
+
+        Set<Map.Entry<String, Integer>> entrySet = map.entrySet();
+        for(Map.Entry<String, Integer> entry : entrySet) {
+            if(entry.getValue()>maxScore) {
+                name = entry.getKey();
+                maxScore = entry.getValue();
+            }
+            totalScore += entry.getValue();
+        }
+
+        int avgScore = totalScore / map.size();
+        System.out.println("평균점수: "+avgScore);
+        System.out.println("최고점수를 받은 아이디: "+name);
+    }
+}
+```
 
 ```
-Set<Map.Entry<String, Integer>> entrySet = map.entrySet();
-for(Map.Entry<String, Integer> entry : entrySet) {
-	if(entry.getValue()>maxScore) {
-		name = entry.getKey();
-		maxScore = entry.getValue();
-	}
-	totalScore += entry.getValue();
-}
-
-int avgScore = totalScore / map.size();
-System.out.println("평균점수: "+avgScore);
-System.out.println("최고점수를 받은 아이디: "+name);
+//실행 결과
+평균점수: 91
+최고점수: 96
+최고점수를 받은 아이디: blue
 ```
 
 ### 13-1-ChatGPT

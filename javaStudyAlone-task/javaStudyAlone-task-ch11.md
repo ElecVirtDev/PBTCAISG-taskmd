@@ -13,47 +13,201 @@
 
    1-4. Object의 toString() 메소드는 기본적으로 객체의 필드값을 문자열로 리턴하지 않는다.
 
-2. | `hashCode()` 리턴값 | → [같음] → | `equals()` 리턴값 | → true → | [동등 객체] |
+2. "작성하는 클래스를 동등 비교하는 컬렉션 객체인 `HashSet, HashMap, HashTable`을 사용하려고 한다. Object의 `equals()`와 `hashCode()` 메소드를 재정의했다고 가정할 경우, 메소드 호출 순서를 생각해보자."
+   | `hashCode()` 리턴값 | → [같음] → | `equals()` 리턴값 | → true → | [동등 객체] |
    | ------------------- | ---------- | ----------------- | -------- | ----------- |
-   | ↓                   | -          | ↓ false           | -        | -           |
-   | 다름                | →          | [다른 객체]       | -        | -           |
+   | ↓ | - | ↓ false | - | - |
+   | 다름 | → | [다른 객체] | - | - |
 
-3.
+3. "`Student` 클래스를 작성하되, Object의 `equals()`와 `hashCode()`를 재정의해서 `Student`의 학번(studentNum)이 같으면 동등 객체가 될 수 있도록 하기. `hashCode()`의 리턴값은 `studentNum` 필드값의 해시코드를 리턴하도록 하기."
 
 ```
-@Override
-public boolean equals(Object obj) {
-	if(obj instanceof Student) {
-		Student student = (Student) obj;
-		if(studentNum.equals(student.getStudentNum())) {
-			return true;
+//Student.java
+package sec01.verify.exam03;
+
+public class Student {
+	private String studentNum;
+
+	public Student(String studentNum) {
+		this.studentNum = studentNum;
+	}
+
+	public String getStudentNum() {
+		return studentNum;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if(obj instanceof Student) {
+			Student student = (Student) obj;
+			if(studentNum.equals(student.getStudentNum())) {
+				return true;
+			}
 		}
-	} return false;
-}
+		return false;
+	}
 
-@Override
-pbulic int hashCode() {
-	return studentNum.hashCode();
+	@Override
+	public int hashCode() {
+		return studentNum.hashCode();
+	}
 }
 ```
 
-4.
+```
+//StudentExample.java
+package sec01.verify.exam03;
+
+import java.util.HashMap;
+
+public class StudentExample {
+	public static void main(String[] args) {
+		//Student 키로 총점을 저장하는 HashMap 객체 생성
+		HashMap<Student, String> hashMap = new HashMap<Student, String>();
+
+		//new Student("1")의 점수 95를 저장
+		hashMap.put(new Student("1"), "95");
+
+		//new Student("1") 로 점수를 읽어옴
+		String score  = hashMap.get(new Student("1"));
+		System.out.println("1번 학생의 총점: " + score);
+	}
+}
+```
 
 ```
-@Override
-public String toString() {
-	return id + ": " + name;
+//실행 결과
+1번 학생의 총점: 95
+```
+
+4. "`Member` 클래스를 작성하되, Object의 `toString()` 메소드를 재정의해서 MemberExample 클래스의 실행 결과처럼 나오도록 작성하기."
+
+```
+//Member.java
+package sec01.verify.exam04;
+
+public class Member {
+	private String id;
+	private String name;
+
+	public Member(String id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return id + ": " + name;
+	}
 }
+```
+
+```
+//MemberExample.java
+package sec01.verify.exam04;
+
+public class MemberExample {
+	public static void main(String[] args) {
+		Member member = new Member("blue", "이파란");
+		System.out.println(member);
+	}
+}
+```
+
+```
+//실행 결과
+blue: 이파란
 ```
 
 5. Class 객체는 `Class.forName()` 메소드 또는 객체의 `getClass()` 메소드로 얻을 수 있다. 클래스의 생성자·필드·메소드에 대한 정보를 알아낼 수 있으며, 클래스 파일을 기준으로 상대 경로의 리소스의 정보를 얻을 수 있다.
 
    5-4. `클래스.class`로 Class 객체를 얻을 수 있다.
 
-6. `new String(bytes)`
-7. `str.indexOf("자바")`, `str.replace("자바", "Java")`
-8. 값의 범위가 `-128~127`인 경우 ==은 값을 비교, 그 외의 값은 번지를 비교한다.
-9. `Integer.parseInt(strData1)`, `String.valueOf(intData2)`
+6. "바이트 배열 {73, 32, 108, 111, 118, 101, 32, 121, 111, 117}을 문자열로 변환하기."
+
+```
+//BytesToStringExample.java
+package sec01.verify.exam06;
+
+public class BytesToStringExample {
+	public static void main(String[] args) {
+		byte[] bytes = { 73, 32, 108, 111, 118, 101, 32, 121, 111, 117 };
+		String str = new String(bytes);
+		System.out.println( str );
+	}
+}
+```
+
+7. "문자열 `모든 프로그램은 자바 언어로 개발될 수 있다.`에서 `자바` 문자열이 포함되어 있는지 확인하고, `자바`를 `Java`로 대치한 새로운 문자열로 만들어보기."
+
+```
+//FindAndReplaceExample.java
+package sec01.verify.exam07;
+
+public class FindAndReplaceExample {
+	public static void main(String[] args) {
+		String str = "모든 프로그램은 자바 언어로 개발될 수 있다.";
+		int index = str.indexOf("자바");
+		if(index == -1) {
+			System.out.println("자바 문자열이 포함되어 있지 않습니다.");
+		} else {
+			System.out.println("자바 문자열이 포함되어 있습니다.");
+			str = str.replace("자바", "Java");
+			System.out.println("-->" + str);
+		}
+	}
+}
+```
+
+```
+//실행 결과
+자바 문자열이 포함되어 있습니다.
+--> 모든 프로그램은 Java 언어로 개발될 수 있다.
+```
+
+8. "박싱된 `Integer` 객체를 == 연산자로 비교했다. 100을 박싱한 `Integer` 객체는 true가 나오는데, 300을 박싱한 `Integer` 객체는 false가 나오는 이유는?"
+
+```
+//IntegerCompareExample.java
+package sec01.verify.exam08;
+
+public class IntegerCompareExample {
+	public static void main(String[] args) {
+		Integer obj1 = 100;
+		Integer obj2 = 100;
+		Integer obj3 = 300;
+		Integer obj4 = 300;
+
+		System.out.println( obj1 == obj2 );
+		System.out.println( obj3 == obj4 );
+	}
+}
+```
+
+```
+//실행 결과
+true
+false
+```
+
+값의 범위가 `-128~127`인 경우 ==은 값을 비교, 그 외의 값은 번지를 비교한다.
+
+9. "문자열 `200`을 정수로 변환하는 코드와 숫자 150을 문자열로 변환하는 코드 작성하기."
+
+```
+//StringConvertExample.java
+package sec01.verify.exam09;
+
+public class StringConvertExample {
+	public static void main(String[] args) {
+		String strData1 = "200";
+		int intData1 = Integer.parseInt(strData1);
+
+		int intData2 = 150;
+		String strData2 = String.valueOf(intData2);
+	}
+}
+```
 
 ## 11-2 `java.util` 패키지
 
@@ -62,7 +216,7 @@ public String toString() {
 
 ### 확인 문제 및 풀이
 
-1.
+1. "`Date`와 `SimpleDateFormat` 클래스를 이용해서 오늘의 날짜를 `2024년 05월 08일 수요일 10시 30분` 같이 출력하는 프로그램 작성하기."
 
 ```
 import java.text.SimpleDateFormat;
@@ -77,7 +231,7 @@ public class DateAndTime {
 }
 ```
 
-2.
+2. "`Calendar` 클래스를 이용해서 1번과 동일한 실행 결과를 출력하는 프로그램 작성하기."
 
 ```
 import java.util.Calendar;
