@@ -133,16 +133,83 @@ Java에서는 **클래스명**은 대문자로 시작해야 한다는 규칙이 
 
 ### 확인 문제 및 풀이
 
-1. `short shortValue = charValue;`에서 **char 타입은 shrot 타입으로 알아서 변환시킬 수 없다.**
-2. `char var = (char)strValue;`의 경우 **char가 단일 문자만 취급**하며, String을 캐스팅할 수 없으므로
-3. `byte result = byteValue + byteValue;`는 더하기 **연산에서 자동으로 int 타입으로 변환**되기 때문이다.
-4. 5~6번 줄. 5번 줄의 경우 더하기 연산이 자동으로 int 타입으로 변환되어서다. 6번 줄의 경우 5번 줄에서 **이미 같은 이름의 변수가 사용되었기 때문**이다.
-5. `char c2 = c1 + 1;`, 더하기 연산에서 자동으로 int 타입으로 변환되므로 `char c2 = (char)(c1 + 1);`으로 수정해야한다.
-6. int, 결과는 "2". 나눗셈 연산에서 자동으로 int 타입으로 변환되므로 **계산된 소수점 이하는 버려지게 된다.**
-7. "float", `(float) x / y;`
-8. `(int)(var1 + var2)`
-9. `(int)(var1 + var2 + var3 + (int)Double.parseDouble(var4))`
+1. 자동 타입 변환 도중에 컴파일 에러가 발생하는 `short shortValue = charValue;`에서 **char 타입은 shrot 타입으로 알아서 변환시킬 수 없다.**
+2. 강제 타입 변환 도중에 컴파일 에러가 발생하는 `char var = (char)strValue;`의 경우 **char가 단일 문자만 취급**하며, String을 캐스팅할 수 없으므로
+3. 연산식에서의 타입 변환 도중에 컴파일 에러가 발생하는 `byte result = byteValue + byteValue;`는 더하기 **연산에서 자동으로 int 타입으로 변환**되기 때문이다.
+4.
+
+```
+short s1 =1;
+short s2 = 2;
+int i1 = 3;
+int i2 = 4;
+short result = s1 + s2;
+int result = i1 + i2;
+```
+
+해당 코드 중 5~6번 줄에서 컴파일 에러가 발생한다. 5번 줄의 경우 더하기 연산이 자동으로 int 타입으로 변환되어서다. 6번 줄의 경우 5번 줄에서 **이미 같은 이름의 변수가 사용되었기 때문**이다.
+
+5. 알파벳 a의 유니코드는 97, b의 유니코드는 98. 따라서 a의 유니코드에 1을 더해서 b로 만들고 출력하는 코드를 작성했으나 컴파일 오류가 발생하였다.
+
+```
+char c1 = 'a';
+char c2 = c1 + 1;
+System.out.println(c2);
+```
+
+오류가 발생하는 코드는 `char c2 = c1 + 1;`, 더하기 연산에서 자동으로 int 타입으로 변환되므로 `char c2 = (char)(c1 + 1);`으로 수정해야한다.
+
+6. Java에서 '/'는 나눗셈 연산자이다. `x / y`는 x를 y로 나누는 연산을 한다. 다음 코드에서 출력되는 결과와 이유를 설명하기
+
+```
+int x = 5;
+int y = 2;
+int result = x / y;
+System.out.println(result);
+```
+
+결과는 "2". 나눗셈 연산에서 자동으로 int 타입으로 변환되므로 **계산된 소수점 이하는 버려지게 된다.**
+
+7. "6번 문제의 내용을 토대로 출력되는 결과로 2.5가 나오게 하고 싶다."
+
+```
+int x = 5;
+int y = 2;
+float result = (float) x / y;
+System.out.println(result);
+```
+
+8. "두 실수를 덧셈 연산하고 소수점 이하 자리를 버리고 싶다."
+
+```
+double var1 = 3.5;
+double var2 = 2.7;
+int result = (int)(var1 + var2);
+```
+
+9. "var1부터 var4까지 + 연산을 수행해서 int 타입 result 변수에 9가 저장되도록 하고 싶다."
+
+```
+long var1 = 2L;
+float var2 = 1.8f;
+double var3 = 2.5;
+String var4 = "3.9";
+int result = (int)(var1 + var2 + var3 + (int)Double.parseDouble(var4));
+System.out.println(result);
+```
+
 10.
+
+```
+String str1 = 2 + 3 + "";
+String str2 = 2 + "" + 3;
+String str3 = "" + 2 + 3;
+System.out.println(str1);
+System.out.println(str2);
+System.out.println(str3);
+```
+
+해당 코드를 실행했을 때 출력 결과는 다음과 같다.
 
 ```
 5
@@ -150,7 +217,14 @@ Java에서는 **클래스명**은 대문자로 시작해야 한다는 규칙이 
 23
 ```
 
-11. `Byte.parseByte`, `Integer.parseInt`, `Float.parseFloat`, `Double.parseDouble`
+11. "문자열을 기본 타입으로 변환하려고 한다."
+
+```
+byte value = Byte.parseByte("10");
+int value = Integer.parseInt("1000");
+float value = Float.parseFloat("20.5");
+double value = Double.parseDouble("3.14159");
+```
 
 ## 02-4 변수와 시스템 입출력
 
@@ -162,9 +236,41 @@ Java에서는 **클래스명**은 대문자로 시작해야 한다는 규칙이 
 
 ### 확인 문제 및 풀이
 
-1. `"이름: " + name", ""나이: " + age + "\n"`, `"전화: "+  tel1 + "-" + tel2 + "-" + tel3`
-2. `scanner.nextLine();`, `scanner.nextLine();`, `Integer.parseInt(strNum1);`, `Integer.parseInt(strNum2);`
-3.
+1. "다음과 같이 출력되도록 하고 싶다."
+
+```
+이름: 감자바
+나이: 25
+전화: 010-123-4567
+```
+
+```
+String name = "감자바";
+int age = 25;
+String tel1 = "010", tel2 = "123", tel3 = "4567";
+System.out.println("이름: " + name);
+System.out.print("나이: " + age + "\n");
+System.out.println("전화: " + tel1 + "-" + tel2 + "-" + tel3);
+```
+
+2. "`Scanner`를 이용해서 키보드로 입력한 두 수를 덧셈하여 결과를 출력하고자 한다."
+
+```
+Scanner scanner = new Scanner(System.in);
+
+System.out.print("첫번째 수:");
+String strNum1 = scanner.nextLine();
+
+System.out.print("두번째 수:");
+String strNum2 = scanner.nextLine();
+
+int num1 = Integer.parseInt(strNum1);
+int num2 = Integer.parseInt(strNum2);
+int result = num1 + num2;
+System.out.println("덧셈 결과:" + result);
+```
+
+3. "`Scanner`를 이용해서 이름, 주민번호 앞 6자리, 전화번호를 키보드에서 입력받고 출력하는 코드 작성하기."
 
 ```
 import java.util.Scanner;
