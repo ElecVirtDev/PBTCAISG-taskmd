@@ -25,15 +25,97 @@
 
 ### 확인 문제 및 풀이
 
-1. 2번째 줄, 바이트 변수 b에 연산자를 붙이면 int 타입으로 변환되기 때문에
-2. 31
-3. `!stop`
-4. /, %
-5. 3번째 줄의 내용이 정수 연산이라서 결과 또한 정수로 나온다. var3에는 2.0이 저장되고, var4로 `(int)(2.0 * 2) = 4`가 된다.
-6. `value / 100 * 100`
-7. 0.1f는 정확히 0.1이 아니기 때문에
-8. `(lengthTop + lengthBottom) * height / 2.0`
-9.
+1. 해당 코드에서 컴파일 오류가 발생하는 위치와 그 이유에 대해서
+
+```
+byte b = 5;
+b = -b;
+int result = 10 / b;
+System.out.println(result);
+```
+
+2번째 줄, 바이트 변수 b에 연산자를 붙이면 int 타입으로 변환되기 때문에
+
+2.
+
+```
+int x = 10;
+int y = 20;
+int z = (++x) + (y--);
+System.out.println(z);
+```
+
+해당 코드를 실행했을 때 출력 결과는 `31`이다.
+
+3. "stop이 true일 때 반복을 멈추고 싶다." 이때 `while(조건식) {}`은 조건식이 true가 될 때 중괄호 {} 안의 실행문을 반복해서 실행한다.
+
+```
+boolean stop = ...;
+while(!stop) {...}
+```
+
+4. "534자루의 연필을 30명의 학생들에게 똑같은 개수로 나누어줄 때 1인당 몇 개를 가질 수 있고, 몇 개가 남는지를 구하는 코드"
+
+```
+int pencils = 534;
+int students = 30;
+
+int pencilsPerStudent = (pencils / students);
+System.out.println(pencilsPerStudent);
+
+int pencilsLeft = (pencils % students);
+System.out.println(pencilsLeft);
+```
+
+5. "다음 코드를 실행했더니 원하던 값 5가 아니라 4가 출력되었다. 어디서 잘못 되었을까?"
+
+```
+int var1 = 5;
+int var2 = 2;
+double var3 = var1 / var2;
+int var4 = (int) (var3 * var2);
+System.out.println(var4);
+```
+
+3번째 줄의 내용이 정수 연산이라서 결과 또한 정수로 나온다. var3에는 2.0이 저장되고, var4로 `(int)(2.0 * 2) = 4`가 된다. 6. "10의 자리 이하를 버리는 코드, 변수 value의 값이 356이라면 300이 나올 수 있도록 하기."
+
+```
+int value = 356이라면;
+System.out.println(value / 100 * 100);
+```
+
+7. "출력 결과로 `10%입니다.`가 아니라 `10%가 아닙니다.`가 출력되었다. 어디서 잘못 되었을까?"
+
+```
+float var1 = 10f;
+float var 2 = var1 / 100;
+if (var2 == 0.1) {
+  System.out.println("10%입니다.")
+} else {
+  System.out.println("10%가 아닙니다.")
+}
+```
+
+0.1f는 정확히 0.1이 아니기 때문에
+
+8. "사다리꼴의 넓이를 구하는 코드. 정확히 소수 자릿수가 나올 수 있도록 하기."
+
+```
+int lengthTop = 5;
+int lengthBottom = 10;
+int height = 7;
+double area = ((lengthTop + lengthBottom) * height / 2.0);
+System.out.println(area);
+```
+
+9. "키보드로 두 실수를 `Scanner`를 사용해서 다음과 같이 입력 받는다. 입력된 1번째 수에 2번째 수를 나눈 결과를 `결과:값`으로 출력하되, 2번째 수에 0 또는 0.0이 입력될 경우 `결과:무한대`가 출력되도록 코드를 작성하기. (`Scanner`의 `next()` 사용)"
+
+```
+첫 번째 수: 7.3
+두 번째 수: 2.5
+--------------
+결과:2.92 (or 결과:무한대)
+```
 
 ```
 Scanner s = new Scanner(System.in);
@@ -62,4 +144,12 @@ value *= 10;
 value /= 10;
 ```
 
-14. 가
+14.
+
+```
+int score = 85;
+String result = (!(score>90)) ? "가" : "나";
+System.out.println(result);
+```
+
+해당 코드를 실행했을 때 출력되는 결과는 `가`.

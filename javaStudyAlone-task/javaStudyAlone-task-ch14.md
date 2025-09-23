@@ -38,19 +38,42 @@
 
    1-3. `DataInputStream`은 원시 데이터를 입력하는 보조 스트림이다. (객체의 경우 `ObjectInputStream·ObjectOutputStream`을 사용)
 
-2.
+2. FileReader와 BufferedReader를 이용해서 source.txt 내용을 읽고, 각 라인 번호를 추가해 모니터로 출력하는 프로그램을 작성하기
 
 ```
-FileReader frame = new FileReader(filePath);
-BufferedReader br = new BufferedReader(fr);
+package sec02.verify.exam02;
 
-int rowNum = 0;
-String rowData;
-while((rowData = br.readLine()) != null) {
-	System.out.println(++rowNum + ": " + rowData);
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+public class AddLineNumberExample {
+  public static void main(String[] args) throws Exception {
+    String filePath = "src/sec02/verify/exam02/AddLineNumberExample.java";
+
+    FileReader frame = new FileReader(filePath);
+    BufferedReader br = new BufferedReader(fr);
+
+    int rowNum = 0;
+    String rowData;
+    while((rowData = br.readLine()) != null) {
+      System.out.println(++rowNum + ": " + rowData);
+    }
+
+    br.close();
+  }
 }
+```
 
-br.close();
+```
+package sec02.verify.exam02;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+
+public class AddLineNumberExample {
+  public static void main(String[] args) throws Exception {
+    String filePath = "src/sec02/verify/exam02/AddLineNumberExample.java";
+...
 ```
 
 ## 14-3 입출력 관련 API
@@ -60,7 +83,7 @@ br.close();
 - **Scanner**: 입출력 스트림도, 보조 스트림도 아니다. 문자 파일이나 바이트 기반 입출력 스트림에서 라인 단위 문자열을 쉽게 읽도록 하기 위해 `java.util` 패키지에서 제공하는 클래스이다.
 - **File**: `java.io` 패키지에서 제공하는 File 클래스의 경우 파일 및 폴더(디렉터리) 정보를 제공하는 역할
 
-1.
+1. 직접 개발해보는 작은 프로젝트. 주어진 메뉴를 가지고 콘솔 게시판을 만들 것. 어떤 경우라도 예외가 발생되어 프로그램이 종료되지 않도록 할 것.
 
 ```
 import java.io.FileInputStream;
