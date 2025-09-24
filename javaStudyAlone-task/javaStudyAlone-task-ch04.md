@@ -133,12 +133,12 @@ for (int x = 1; x <= 10; x++) {
 ```
 
 ```
-	for (int i = 0; i < 5; i++) {
-	  for (int j = 0; j < i; j++) {
-		System.out.print("*");
-	  }
-	  System.out.println();
+for (int i = 0; i < 5; i++) {
+	for (int j = 0; j < i; j++) {
+	System.out.print("*");
 	}
+	System.out.println();
+}
 ```
 
 6. "for문을 이용해서 다음과 같이 \*를 출력하는 코드 작성하기."
