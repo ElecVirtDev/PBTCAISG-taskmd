@@ -28,7 +28,7 @@ if(true) {
       v2 = 1;
       v3 = 1;
    }
-   v1 = v2 + v3;
+   v1 = v2 + v3;  //컴파일 오류 발생
 }
 System.out.println(v1);
 ```
@@ -161,7 +161,7 @@ short s1 =1;
 short s2 = 2;
 int i1 = 3;
 int i2 = 4;
-short result = s1 + s2;
+short result = s1 + s2; //해당 줄부터 컴파일 에러 발생
 int result = i1 + i2;
 ```
 
@@ -171,7 +171,7 @@ int result = i1 + i2;
 
 ```
 char c1 = 'a';
-char c2 = c1 + 1;
+char c2 = c1 + 1; //연산 시 자동으로 int로 변환
 System.out.println(c2);
 ```
 

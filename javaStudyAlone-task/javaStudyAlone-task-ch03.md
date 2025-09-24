@@ -29,7 +29,7 @@
 
 ```
 byte b = 5;
-b = -b;
+b = -b; //컴파일 오류
 int result = 10 / b;
 System.out.println(result);
 ```
@@ -72,15 +72,17 @@ System.out.println(pencilsLeft);
 ```
 int var1 = 5;
 int var2 = 2;
-double var3 = var1 / var2;
+double var3 = var1 / var2;  //정수 연산
 int var4 = (int) (var3 * var2);
 System.out.println(var4);
 ```
 
-3번째 줄의 내용이 정수 연산이라서 결과 또한 정수로 나온다. var3에는 2.0이 저장되고, var4로 `(int)(2.0 * 2) = 4`가 된다. 6. "10의 자리 이하를 버리는 코드, 변수 value의 값이 356이라면 300이 나올 수 있도록 하기."
+3번째 줄의 내용이 정수 연산이라서 결과 또한 정수로 나온다. var3에는 2.0이 저장되고, var4로 `(int)(2.0 * 2) = 4`가 된다.
+
+6. "10의 자리 이하를 버리는 코드, 변수 value의 값이 356이라면 300이 나올 수 있도록 하기."
 
 ```
-int value = 356이라면;
+int value = 356;
 System.out.println(value / 100 * 100);
 ```
 
@@ -96,7 +98,7 @@ if (var2 == 0.1) {
 }
 ```
 
-0.1f는 정확히 0.1이 아니기 때문에
+float 0.1f는 정확히 0.1이 아니기 때문에
 
 8. "사다리꼴의 넓이를 구하는 코드. 정확히 소수 자릿수가 나올 수 있도록 하기."
 
